@@ -1,0 +1,25 @@
+logging:
+  level:
+    org.hibernate:
+      type: TRACE
+      SQL: DEBUG
+    org.jooq.tools.LoggerListener: DEBUG
+    org.springframework:
+      web: DEBUG
+      security: DEBUG
+
+spring:
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:tc:mysql:8.0.29:////onu?serverTimezone=Asia/Seoul&TC_REUSABLE=true
+  jpa:
+    hibernate.ddl-auto: none
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: true

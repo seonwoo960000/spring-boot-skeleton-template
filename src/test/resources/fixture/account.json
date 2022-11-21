@@ -1,0 +1,15 @@
+{
+  "username": "seonwoo 2username6",
+  "password": "password",
+  "authProvider": "GOOGLE",
+  "accountExpired": false,
+  "accountLocked": false,
+  "credentialExpired": false,
+  "enabled": true,
+  "name": "seonwoo",
+  "description": "seonwoo description",
+  "telEnc": "asgsdfsf",
+  "pictureUrl": "http://loclaho",
+  "email": "seonwoo@naver.com",
+  "authority": "authority"
+}

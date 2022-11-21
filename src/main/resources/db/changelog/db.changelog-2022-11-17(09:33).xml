@@ -1,0 +1,348 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="user (generated)" id="1668677610942-1">
+        <createTable tableName="account">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="username" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="CHAR(200)"/>
+            <column defaultValue="NONE" name="auth_provider" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="account_expired" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="account_locked" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_locked_at" type="timestamp"/>
+            <column defaultValueBoolean="false" name="credential_expired" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="true" name="enabled" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)"/>
+            <column name="description" type="VARCHAR(100)"/>
+            <column name="tel_enc" type="VARCHAR(30)"/>
+            <column name="picture_url" type="VARCHAR(300)"/>
+            <column name="email" type="VARCHAR(30)"/>
+            <column defaultValue="ROLE_USER" name="authority" type="CHAR(10)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="created_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="modified_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="modified_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-2">
+        <createTable tableName="attribute">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="menu_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rating" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="created_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="modified_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="modified_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-3">
+        <createTable tableName="category">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="store_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="menu_ids" type="JSON(1073741824)"/>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="created_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="modified_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="modified_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-4">
+        <createTable tableName="menu">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="store_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0.00" name="price" type="DECIMAL(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" remarks="set to -1 when category is deleted" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(1000)"/>
+            <column name="img_url" type="VARCHAR(2083)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="created_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="modified_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="modified_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-5">
+        <createTable tableName="qr">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="store_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(1000)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="created_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="modified_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="modified_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-6">
+        <createTable tableName="recommendation">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="store_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(1000)"/>
+            <column name="menu_ids" type="VARCHAR(100)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="created_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="modified_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="modified_by" type="VARCHAR(10)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-7">
+        <createTable tableName="store">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="deleted" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="operating_hours" type="JSON(1073741824)"/>
+            <column name="description" type="VARCHAR(500)"/>
+            <column name="img_url" type="VARCHAR(2083)"/>
+            <column name="phone_number" type="VARCHAR(20)"/>
+            <column name="facebook_url" type="VARCHAR(2083)"/>
+            <column name="instagram_url" type="VARCHAR(2083)"/>
+            <column name="email" type="VARCHAR(50)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="created_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="modified_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="modified_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="story_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-8">
+        <createTable tableName="story">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="store_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subtitle" type="VARCHAR(100)"/>
+            <column name="description" type="VARCHAR(1002)"/>
+            <column name="img_url" type="VARCHAR(2083)"/>
+            <column defaultValueBoolean="true" name="active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="created_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="modified_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="SYSTEM" name="modified_by" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-9">
+        <createTable tableName="test">
+            <column autoIncrement="true" name="seq" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="reg_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-10">
+        <addUniqueConstraint columnNames="username, auth_provider" constraintName="user_pk" tableName="account"/>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-11">
+        <createIndex indexName="attribute_menu_id_fk" tableName="attribute">
+            <column name="menu_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-12">
+        <createIndex indexName="category_store_id_fk" tableName="category">
+            <column name="store_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-13">
+        <createIndex indexName="menu_category_id_index" tableName="menu">
+            <column name="category_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-14">
+        <createIndex indexName="menu_store_id_fk" tableName="menu">
+            <column name="store_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-15">
+        <createIndex indexName="qr_store_id_fk" tableName="qr">
+            <column name="store_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-16">
+        <createIndex indexName="recommendation_store_id_fk" tableName="recommendation">
+            <column name="store_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-17">
+        <createIndex indexName="store_account_id_fk" tableName="store">
+            <column name="account_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-18">
+        <createIndex indexName="story_store_id_fk" tableName="story">
+            <column name="store_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-19">
+        <addForeignKeyConstraint baseColumnNames="menu_id" baseTableName="attribute" constraintName="attribute_menu_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="menu" validate="true"/>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-20">
+        <addForeignKeyConstraint baseColumnNames="store_id" baseTableName="category" constraintName="category_store_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="store" validate="true"/>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-21">
+        <addForeignKeyConstraint baseColumnNames="store_id" baseTableName="menu" constraintName="menu_store_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="store" validate="true"/>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-22">
+        <addForeignKeyConstraint baseColumnNames="store_id" baseTableName="qr" constraintName="qr_store_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="store" validate="true"/>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-23">
+        <addForeignKeyConstraint baseColumnNames="store_id" baseTableName="recommendation" constraintName="recommendation_store_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="store" validate="true"/>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-24">
+        <addForeignKeyConstraint baseColumnNames="account_id" baseTableName="store" constraintName="store_account_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="account" validate="true"/>
+    </changeSet>
+    <changeSet author="user (generated)" id="1668677610942-25">
+        <addForeignKeyConstraint baseColumnNames="store_id" baseTableName="story" constraintName="story_store_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="store" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

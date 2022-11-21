@@ -1,0 +1,49 @@
+### GET account
+GET http://localhost:8080/account/1
+
+### GET account with stories
+GET http://localhost:8080/account/stories/1
+
+### INSERT account
+POST http://localhost:8080/account
+Content-Type: application/json
+
+{
+  "id": null,
+  "username": "seonwoo 2username6",
+  "password": "password",
+  "authProvider": "GOOGLE",
+  "accountExpired": false,
+  "accountLocked": false,
+  "credentialExpired": false,
+  "enabled": true,
+  "name": "seonwoo",
+  "description": "seonwoo description",
+  "telEnc": "asgsdfsf",
+  "pictureUrl": "http://loclaho",
+  "email": "seonwoo@naver.com",
+  "authority": "authority"
+}
+
+### UPDATE account
+PUT http://localhost:8080/account/1
+Content-Type: application/json
+
+{
+  "username": "seonwoo",
+  "password": "password",
+  "authProvider": "GOOGLE",
+  "accountExpired": false,
+  "accountLocked": false,
+  "credentialExpired": false,
+  "enabled": true,
+  "name": "seonwoo",
+  "description": "seonwoo description update",
+  "telEnc": "asgsdfsf",
+  "pictureUrl": "http://loclaho update",
+  "email": "seonwoo@naver.com",
+  "authority": "authority"
+}
+
+### DELETE account
+DELETE http://localhost:8080/account/hello/123
